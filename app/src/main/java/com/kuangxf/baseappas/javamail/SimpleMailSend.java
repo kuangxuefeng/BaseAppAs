@@ -1,6 +1,6 @@
 package com.kuangxf.baseappas.javamail;
 
-import android.util.Log;
+import com.kuangxf.baseappas.utils.LogUtil;
 
 import java.io.UnsupportedEncodingException;
 
@@ -43,7 +43,7 @@ public class SimpleMailSend {
             re = true;
         } catch (MessagingException e) {
             // TODO Auto-generated catch block
-            Log.i("Msg", e.getMessage());
+            LogUtil.i(e.getMessage());
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
@@ -80,7 +80,7 @@ public class SimpleMailSend {
             re = true;
         } catch (MessagingException e) {
             // TODO Auto-generated catch block
-            Log.i("Msg", e.getMessage());
+            LogUtil.i(e.getMessage());
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block

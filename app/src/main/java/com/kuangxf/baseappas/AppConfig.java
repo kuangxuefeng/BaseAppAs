@@ -3,13 +3,14 @@ package com.kuangxf.baseappas;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.kuangxf.baseappas.utils.LogUtil;
-
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 public class AppConfig {
 	public static final String BASE_ACTIVITY_LOG_INFO_STRING = "  run...(send by base)";
-	
+	public static final SimpleDateFormat sdf_split = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss SSS");
+	public static final SimpleDateFormat sdf_no_split = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	
 	//----------------------------数据库--------------------------
     public static final String DB_NAME = "MyDB.db";//数据库名称
@@ -20,6 +21,11 @@ public class AppConfig {
 	 * 数据库存放位置
 	 */
 	public static final String folder_db = AppConfig.getSDPath("db");
+
+	/**
+	 * log存放位置
+	 */
+	public static final String folder_log = AppConfig.getSDPath("log");
 
 	/**
 	 * 获取存放路径，需要读写sdk的权限
@@ -40,16 +46,26 @@ public class AppConfig {
 		}
 		file = new File(dir);
 		makeDir(file);
-		LogUtil.e("dir="+dir);
 		return dir;
 	}
 	
 	public static void makeDir(File dir) {
-		LogUtil.e("dir="+dir);
         if (!dir.getParentFile().exists()) {
-        	LogUtil.e("dir.getParentFile()="+dir.getParentFile());
             makeDir(dir.getParentFile());
         }
         dir.mkdir();
     }
+
+	public static void creatFile(File file) {
+		if (!file.getParentFile().exists()) {
+			makeDir(file.getParentFile());
+		}
+		if (!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

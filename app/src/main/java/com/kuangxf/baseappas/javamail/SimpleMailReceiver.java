@@ -88,7 +88,7 @@ public class SimpleMailReceiver {
             LogUtil.e("message.getSubject()=" + message.getSubject());
             LogUtil.e("message.getContentType()=" + message.getContentType());
             LogUtil.e("message.getContent()=" + message.getContent());
-            LogUtil.e("格式化 ： message.getSentDate()=" + SimpleMail.sdf_split.format(message.getSentDate()));
+            LogUtil.e("格式化 ： message.getSentDate()=" + AppConfig.sdf_split.format(message.getSentDate()));
             LogUtil.e("message.getFileName()=" + message.getFileName());
 
             MimeMessageParser parser = new MimeMessageParser((MimeMessage) message).parse();

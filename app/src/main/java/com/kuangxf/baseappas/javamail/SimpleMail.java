@@ -1,6 +1,5 @@
 package com.kuangxf.baseappas.javamail;
 
-import java.text.SimpleDateFormat;
 import java.util.Properties;
 
 import javax.mail.Session;
@@ -10,8 +9,6 @@ import javax.mail.Session;
  */
 
 public class SimpleMail {
-    public static final SimpleDateFormat sdf_split = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss SSS");
-    public static final SimpleDateFormat sdf_no_split = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
     public static Properties getProperties_163() {
         Properties props = new Properties();

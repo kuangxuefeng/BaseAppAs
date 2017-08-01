@@ -18,8 +18,8 @@ public class MyApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-        LogUtil.e("onCreate()");
         instance = this;
+        LogUtil.e("onCreate()");
         initDB();
 	}
 	
