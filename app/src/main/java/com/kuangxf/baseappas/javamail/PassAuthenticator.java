@@ -13,7 +13,7 @@ public class PassAuthenticator extends Authenticator {
 
     @Override
     public PasswordAuthentication getPasswordAuthentication() {
-        if (TextUtils.isEmpty(UserInfo.getUserName()) || TextUtils.isEmpty(UserInfo.getPw())){
+        if (TextUtils.isEmpty(UserInfo.getUserName()) || TextUtils.isEmpty(UserInfo.getPw())) {
             return null;
         }
         return new PasswordAuthentication(UserInfo.getUserName(), UserInfo.getPw());

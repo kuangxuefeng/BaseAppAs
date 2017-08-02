@@ -38,10 +38,10 @@ public class UserInfo {
         MyApplication.saveShare(KEY_PW, pwEnc);
     }
 
-    public static boolean checkInfo(){
-        if ((!TextUtils.isEmpty(getUserName()))&&(!TextUtils.isEmpty(getPw()))){
+    public static boolean checkInfo() {
+        if ((!TextUtils.isEmpty(getUserName())) && (!TextUtils.isEmpty(getPw()))) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

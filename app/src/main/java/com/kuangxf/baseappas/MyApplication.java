@@ -12,25 +12,25 @@ import java.io.File;
 
 
 public class MyApplication extends Application {
-	private static MyApplication instance;
-	private static DbManager xdb = null;
-	
-	@Override
-	public void onCreate() {
-		super.onCreate();
+    private static MyApplication instance;
+    private static DbManager xdb = null;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
         instance = this;
         LogUtil.e("onCreate()");
         initDB();
-	}
-	
-	public static MyApplication getInstance() {
-		LogUtil.d("getInstance()  instance=" + instance);
+    }
+
+    public static MyApplication getInstance() {
+        LogUtil.d("getInstance()  instance=" + instance);
         return instance;
     }
 
     //初始化xutil3 数据库
     private DbManager initDB() {
-    	LogUtil.e("initDB()");
+        LogUtil.e("initDB()");
         xdb = x.getDb(getDBConfig());
         return xdb;
     }
@@ -74,17 +74,18 @@ public class MyApplication extends Application {
     }
 
     private static final String SHARE_NAME = "appInfo";
-    public static void saveShare(String key, String value){
+
+    public static void saveShare(String key, String value) {
         SharedPreferences share = instance.getSharedPreferences(SHARE_NAME, MODE_PRIVATE);
         share.edit().putString(key, value).commit();
     }
 
-    public static String getShare(String key, String def){
+    public static String getShare(String key, String def) {
         SharedPreferences share = instance.getSharedPreferences(SHARE_NAME, MODE_PRIVATE);
         return share.getString(key, def);
     }
 
-    public static String getShare(String key){
+    public static String getShare(String key) {
         return getShare(key, "");
     }
 }

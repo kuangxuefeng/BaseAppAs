@@ -74,7 +74,7 @@ public class EncUtil {
     public static String dumpBytes(byte[] bytes) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < bytes.length; i++) {
-			/*
+            /*
 			 * if (i%32 == 0 && i!=0) { sb.append("\n"); }
 			 */
             String s = Integer.toHexString(bytes[i]);
@@ -93,7 +93,7 @@ public class EncUtil {
         try {
             int len = str.length() / 2;
             if (len <= 2) {
-                return new byte[] { Byte.parseByte(str) };
+                return new byte[]{Byte.parseByte(str)};
             }
             byte[] arr = new byte[len];
             for (int i = 0; i < arr.length; i++) {
@@ -109,10 +109,8 @@ public class EncUtil {
     /**
      * 加密
      *
-     * @param encrypt_value
-     *            被加密的字符串
-     * @param encrypt_key
-     *            加密的密钥
+     * @param encrypt_value 被加密的字符串
+     * @param encrypt_key   加密的密钥
      * @return
      */
     public static String encryptAsString(String encrypt_key, String encrypt_value) {
@@ -122,10 +120,8 @@ public class EncUtil {
     /**
      * 解密
      *
-     * @param encrypt_value
-     *            要解密的字符串
-     * @param encrypt_key
-     *            密钥
+     * @param encrypt_value 要解密的字符串
+     * @param encrypt_key   密钥
      * @return
      */
     public static String desEncryptAsString(String encrypt_key, String encrypt_value) {

@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_db:
                 DeviceIdBean idBean = new DeviceIdBean();
                 idBean.setAndroidId(DeviceIdUtil.getAndroidId(this));
@@ -161,10 +161,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_save:
                 String name = et_name.getText().toString().trim();
                 String pw = et_pw.getText().toString().trim();
-                if (!TextUtils.isEmpty(name)){
+                if (!TextUtils.isEmpty(name)) {
                     UserInfo.setUserName(name);
                 }
-                if (!TextUtils.isEmpty(pw)){
+                if (!TextUtils.isEmpty(pw)) {
                     UserInfo.setPw(pw);
                 }
                 break;
