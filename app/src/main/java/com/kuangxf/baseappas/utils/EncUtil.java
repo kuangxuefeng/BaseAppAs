@@ -12,12 +12,13 @@ import javax.crypto.spec.DESKeySpec;
 public class EncUtil {
 
     private static final String CHARSET_NAME = "UTF-8";
+    private static final String DEFUALT_KEY = "12345678123456781234567812345678";
 
     public static byte[] desEncrypt(String strKey, String msg) {
         if (msg == null)
             msg = "";
         if (strKey == null) {
-            strKey = "dudusalt";
+            strKey = DEFUALT_KEY;
         }
         byte[] keyBytes = new byte[8];
         int saltLen = strKey.length();
@@ -46,7 +47,7 @@ public class EncUtil {
         if (msg == null)
             return null;
         if (strKey == null) {
-            strKey = "dudusalt";
+            strKey = DEFUALT_KEY;
         }
         byte[] keyBytes = new byte[8];
         int saltLen = strKey.length();
