@@ -21,7 +21,7 @@ public class LogUtil {
 	private static boolean isOpenLog = BuildConfig.isOpenLog;
 	public final static String KeyLogFileName = "KeyLogFileName";
 	private static String logFile;
-	private static final long logFileSizeKB = 5 * 1024;//50*1024  为50m
+	private static final long logFileSizeKB = 50 * 1024;//50*1024  为50m
 	static {
 		getLogFilePath(false);
 		File f = new File(logFile);

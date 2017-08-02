@@ -20,9 +20,11 @@ import com.kuangxf.baseappas.utils.DeviceIdUtil;
 import com.kuangxf.baseappas.utils.EncUtil;
 import com.kuangxf.baseappas.utils.LogUtil;
 import com.kuangxf.baseappas.utils.MyDesKeyUtil;
+import com.kuangxf.baseappas.utils.ZipUtils;
 
 import org.xutils.ex.DbException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -111,11 +113,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         MimeMultipart partList = new MimeMultipart();
                         MimeBodyPart part1 = new MimeBodyPart();
                         MimeBodyPart part2 = new MimeBodyPart();
+                        MimeBodyPart part3 = new MimeBodyPart();
+                        MimeBodyPart part4 = new MimeBodyPart();
                         try {
                             part1.setText(sb.toString());
                             part2.attachFile(MyApplication.getShare(LogUtil.KeyLogFileName));
+                            String zipFile = AppConfig.getSDPath("zipFile") + File.separator + "logZip" + AppConfig.sdf_no_split.format(new Date()) + ".zip";
+                            ZipUtils.zip(AppConfig.folder_log, zipFile);
+                            part3.attachFile(zipFile);
+                            String gZipFile = zipFile + ".gz";
+                            ZipUtils.gZip(new File(zipFile), new File(gZipFile));
+                            part4.attachFile(gZipFile);
                             partList.addBodyPart(part1);
                             partList.addBodyPart(part2);
+                            partList.addBodyPart(part3);
+                            partList.addBodyPart(part4);
                         } catch (MessagingException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
