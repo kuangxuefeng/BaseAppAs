@@ -16,6 +16,7 @@ import com.kuangxf.baseappas.javamail.SimpleMail;
 import com.kuangxf.baseappas.javamail.SimpleMailReceiver;
 import com.kuangxf.baseappas.javamail.SimpleMailSend;
 import com.kuangxf.baseappas.javamail.UserInfo;
+import com.kuangxf.baseappas.position.PositioningUtil;
 import com.kuangxf.baseappas.utils.DeviceIdUtil;
 import com.kuangxf.baseappas.utils.EncUtil;
 import com.kuangxf.baseappas.utils.LogUtil;
@@ -37,7 +38,7 @@ import static com.kuangxf.baseappas.MyApplication.db;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private Button btn_db, btn_send_email, btn_re_email, btn_enc, btn_save, btn_read;
+    private Button btn_db, btn_send_email, btn_re_email, btn_enc, btn_save, btn_read, btn_dingwei;
     private EditText et_name, et_pw;
 
     @Override
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_enc = (Button) findViewById(R.id.btn_enc);
         btn_save = (Button) findViewById(R.id.btn_save);
         btn_read = (Button) findViewById(R.id.btn_read);
+        btn_dingwei = (Button) findViewById(R.id.btn_dingwei);
 
         btn_db.setOnClickListener(this);
         btn_send_email.setOnClickListener(this);
@@ -61,6 +63,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btn_enc.setOnClickListener(this);
         btn_save.setOnClickListener(this);
         btn_read.setOnClickListener(this);
+        btn_dingwei.setOnClickListener(this);
 
         et_name = (EditText) findViewById(R.id.et_name);
         et_pw = (EditText) findViewById(R.id.et_pw);
@@ -170,6 +173,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_read:
                 LogUtil.readFile();
+                break;
+            case R.id.btn_dingwei:
+                PositioningUtil.getPosition(MainActivity.this);
                 break;
         }
     }
