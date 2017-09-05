@@ -1,7 +1,10 @@
 package com.kuangxf.baseappas.activity;
 
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -175,7 +178,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 LogUtil.readFile();
                 break;
             case R.id.btn_dingwei:
-                PositioningUtil.getPosition(MainActivity.this);
+                PositioningUtil.getPosition(MainActivity.this, new LocationListener() {
+                    //位置发生改变时调用
+                    @Override
+                    public void onLocationChanged(Location location) {
+                        Log.d("Location", "onLocationChanged");
+                        Log.d("Location", "onLocationChanged Latitude"+ location.getLatitude());
+                        Log.d("Location", "onLocationChanged location"+ location.getLongitude());
+                    }
+
+                    //provider失效时调用
+                    @Override
+                    public void onProviderDisabled(String provider) {
+                        Log.d("Location", "onProviderDisabled");
+                    }
+
+                    //provider启用时调用
+                    @Override
+                    public void onProviderEnabled(String provider) {
+                        Log.d("Location", "onProviderEnabled");
+                    }
+
+                    //状态改变时调用
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                        Log.d("Location", "onStatusChanged");
+                    }
+                });
                 break;
         }
     }
